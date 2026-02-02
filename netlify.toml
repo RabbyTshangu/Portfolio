@@ -1,0 +1,18 @@
+# Configuration Netlify pour le formulaire de contact
+
+[build]
+  publish = "."
+  command = ""
+
+# Configuration du formulaire de contact
+[[redirects]]
+  from = "/contact-success"
+  to = "/index.html"
+  status = 200
+
+# Les notifications d'emails seront configurées dans le dashboard Netlify
+# Pour recevoir les messages sur Gmail:
+# 1. Allez dans Netlify Dashboard
+# 2. Site settings > Forms
+# 3. Cliquez sur "Enable forms"
+# 4. Configurez la notification email vers votre Gmail
