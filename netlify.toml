@@ -1,36 +1,18 @@
-# Configuration Netlify pour le formulaire de contact
-
 [build]
   publish = "."
-  command = "echo 'Site statique - aucune build requise'"
+  command = "echo 'Site statique'"
 
-# Configuration du formulaire de contact Netlify
-# Note: Le formulaire doit avoir name="contact" et netlify=true
-
-# Redirection pour la page de succès
-[[redirects]]
-  from = "/success.html"
-  to = "/success.html"
-  status = 200
-
-# Redirection pour SPA (Single Page Application)
-# Redirige les URLs qui n'existent pas vers index.html
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-# En-têtes de sécurité
 [[headers]]
   for = "/*"
   [headers.values]
     X-Content-Type-Options = "nosniff"
     X-Frame-Options = "SAMEORIGIN"
-    X-XSS-Protection = "1; mode=block"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
 
-# Cache pour les fichiers statiques
 [[headers]]
   for = "/css/*"
   [headers.values]
@@ -46,7 +28,6 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000"
 
-# Fichiers HTML - pas de cache
 [[headers]]
   for = "/*.html"
   [headers.values]
