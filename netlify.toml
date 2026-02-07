@@ -1,39 +1,53 @@
-<<<<<<< HEAD
 # Configuration Netlify pour le formulaire de contact
 
 [build]
   publish = "."
-  command = ""
+  command = "echo 'Site statique - aucune build requise'"
 
-# Configuration du formulaire de contact
+# Configuration du formulaire de contact Netlify
+# Note: Le formulaire doit avoir name="contact" et netlify=true
+
+# Redirection pour la page de succès
 [[redirects]]
-  from = "/contact-success"
+  from = "/success.html"
+  to = "/success.html"
+  status = 200
+
+# Redirection pour SPA (Single Page Application)
+# Redirige les URLs qui n'existent pas vers index.html
+[[redirects]]
+  from = "/*"
   to = "/index.html"
   status = 200
 
-# Les notifications d'emails seront configurées dans le dashboard Netlify
-# Pour recevoir les messages sur Gmail:
-# 1. Allez dans Netlify Dashboard
-# 2. Site settings > Forms
-# 3. Cliquez sur "Enable forms"
-# 4. Configurez la notification email vers votre Gmail
-=======
-# Configuration Netlify pour le formulaire de contact
+# En-têtes de sécurité
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
 
-[build]
-  publish = "."
-  command = ""
+# Cache pour les fichiers statiques
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
 
-# Configuration du formulaire de contact
-[[redirects]]
-  from = "/contact-success"
-  to = "/index.html"
-  status = 200
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
 
-# Les notifications d'emails seront configurées dans le dashboard Netlify
-# Pour recevoir les messages sur Gmail:
-# 1. Allez dans Netlify Dashboard
-# 2. Site settings > Forms
-# 3. Cliquez sur "Enable forms"
-# 4. Configurez la notification email vers votre Gmail
->>>>>>> c9c310e7a3c6542f82ed6586888f27128efb8ccf
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+# Fichiers HTML - pas de cache
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
